@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import shutil
 import time
 import os
@@ -461,3 +460,4 @@ class ScFile:
                 return
             else:
                 time.sleep(0.01)
+                pass
