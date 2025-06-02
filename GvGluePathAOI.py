@@ -553,42 +553,42 @@ class glue_display():
             str_lack_glue = "NG"
         return [str_total_result,str_coverage,str_missing,str_broken,str_lack_glue,str_no_glue,str_over_flow,str_hole,str_shift,str_lenght]
 
-    #用于39客户指定的显示模板
-    # guiArray :显示用GuiArray
-    # str_info :异型胶输出数据
-    # str_station :工站名称
-    # font_size：显示字体
-    # offset_x：显示偏移量X
-    # offset_y：显示偏移量Y
-    # line_space: 显示行间距
-    # line_width：显示线宽
-    # b_show_lackglue: True显示缺胶信息；false不显示
-    # show_OK：是否显示OK的区域，默认为True(显示)，置false时OK不显示（NG强制显示）
-    # list_posx,list_posy:NG信息显示调整位置，若缺损则默认0，若不足区域个数，则默认后续补0
+    # Dùng cho mẫu hiển thị được khách hàng số 39 chỉ định
+    # guiArray : GuiArray dùng để hiển thị
+    # str_info : dữ liệu đầu ra keo hình dạng đặc biệt
+    # str_station : tên công đoạn (workstation)
+    # font_size : cỡ chữ hiển thị
+    # offset_x : độ lệch hiển thị theo trục X
+    # offset_y : độ lệch hiển thị theo trục Y
+    # line_space : khoảng cách giữa các dòng hiển thị
+    # line_width : độ rộng đường kẻ hiển thị
+    # b_show_lackglue : True hiển thị thông tin thiếu keo; False không hiển thị
+    # show_OK : có hiển thị vùng OK hay không, mặc định True (hiển thị), nếu đặt False thì vùng OK không hiển thị (vùng NG bắt buộc hiển thị)
+    # list_posx, list_posy : điều chỉnh vị trí hiển thị thông tin NG, nếu thiếu thì mặc định là 0, nếu số vùng không đủ thì phần còn lại được tự động thêm 0
     def show_detection_result(self, guiArray, str_info,str_station, d_CT,font_size=40, offset_x=50, offset_y=50, line_space=0,
                              line_width=3, b_show_lackglue=False,show_OK=False,list_posx=None, list_posy=None,d_img_width=5472):
         obj = str_info
-        #获取各项检测结果
+        # Lấy kết quả kiểm tra từng mục
         list_detection_result=self.get_all_detection_result(obj)
-        # 基础信息
+        # Thông tin cơ bản
         obj_base = obj["base_info"]
         region_num = obj["base_info"]["region_number"]
         obj_region = obj["region_info"]
 
-        # 显示工站名称
+        # Hiển thị tên công đoạn
         clr = [255, 0, 0]
         if list_detection_result[5] == "OK":
             clr = [0, 255, 0]
         str_out = str_station
         temp_font_size = font_size
         guiArray.Add(imageShowTextXY(offset_x, offset_y, str_out, clr,font_size))
-        # 显示SN
+        # Hiển thị SN
         clr = [255, 0, 0]
         if list_detection_result[5] == "OK":
             clr = [0, 255, 0]
         str_out = "SN:" + obj_base["SN"]
         guiArray.Add(imageShowTextXY(offset_x, offset_y + (line_space + font_size) , str_out,clr, font_size))
-        #显示时间
+        # Hiển thị thời gian
         clr = [255, 0, 0]
         if list_detection_result[5] == "OK":
             clr = [0, 255, 0]
@@ -596,9 +596,9 @@ class glue_display():
         now = time.localtime()
         str_out = "Time:"+time.strftime("%Y-%m-%d %H:%M:%S", now)
         guiArray.Add(imageShowTextXY(offset_x, offset_y + (line_space + font_size) * 2, str_out, clr, font_size))
-        # 检测项信息
+        # Thông tin mục kiểm tra
         n_detection_nums=1
-        # 胶占比
+        # Tỷ lệ keo
         clr=[255,0,0]
         for i in range(region_num):
             index = "region_{index}".format(index=i)
@@ -653,7 +653,7 @@ class glue_display():
         guiArray.Add(imageShowTextXY(offset_x, offset_y + (line_space + font_size) * (n_detection_nums + 2) ,str_out, clr, font_size))
         n_detection_nums=n_detection_nums+1
 
-        #over_flow
+        # over_flow
         clr = [255, 0, 0]
         for i in range(0,region_num):
             index = "region_{index}".format(index = i)
@@ -711,7 +711,7 @@ class glue_display():
         str_out="CT:"+str(round(d_CT,3))
         guiArray.Add(imageShowTextXY(offset_x, offset_y + (line_space + font_size) * (n_detection_nums + 2) , str_out, clr, font_size))
 
-        #总结果
+        # Kết quả kiểm tra
         temp_show_font=font_size*2
         if temp_show_font>360:
             temp_show_font=360
@@ -721,7 +721,7 @@ class glue_display():
             clr = [0, 255, 0]
         guiArray.Add(imageShowTextXY(d_img_width-offset_x-temp_show_font-100, offset_y ,str_out, clr, temp_show_font))
 
-        # 显示检测区域
+        # Hiển thị vùng kiểm tra
         list_region = []
         for i in range(region_num):
             list_region.append(i)
@@ -729,7 +729,7 @@ class glue_display():
         if font_size_ng < 8:
             font_size_ng = 8
         guiArray = self.show_detetion_Region(guiArray, obj, list_region, show_OK, font_size_ng, line_width, False)
-        # 显示NG信息
+        # Hiển thị thông tin NG
         font_size_ng = int(font_size / 2)
         if font_size_ng < 8:
             font_size_ng = 8
@@ -878,10 +878,10 @@ class glue_display():
             except:
                 temp = 0  # 
 
-        # 占比信息
-        list_error_code=[]
-        list_ng_region=[]
-        error_codes=0
+        # Xử lý thông tin "tỷ lệ phủ keo" (Coverage Shift)
+        list_error_code = []     # Danh sách mã lỗi của từng vùng
+        list_ng_region = []      # Danh sách vùng có lỗi
+        error_codes = 0          # Mã lỗi tổng thể
         for i in range(region_num):
             index = "region_{index}".format(index = list_region[i])
             obj_area_shift = obj_region[index]["region_info_areashift"]
@@ -893,6 +893,7 @@ class glue_display():
         if len(list_error_code)>0:
             nums=nums+1
             str_out_area_shirt="Glue coverage shift:"
+            # Nếu không có lỗi
             if sum(list_error_code)==0:
                 str_out_area_shirt=str_out_area_shirt+"OK"
             else:
@@ -900,10 +901,10 @@ class glue_display():
                     error_codes=1
                 else:
                     error_codes=2
-                #NG信息增加
+                # Hiển thị thông tin NG nếu cấu hình cho phép
                 if (error_codes==2 and b_show_cof==True ) or error_codes==1:
                     list_out_mes.append("CoverageShift")
-                #根据结果及是否显示COF来显示单项NG/OK信息
+                # Tùy thuộc vào cấu hình có hiển thị COF không để xác định hiển thị NG/OK
                 if error_codes==2:
                     if b_show_cof==True:
                         str_out_area_shirt = str_out_area_shirt+"NG("
@@ -1802,14 +1803,14 @@ class glue_display():
         
         return guiArray 
         
-    #用于绘制检测ROI
-    #guiArray :显示用GuiArray
-    #str_info :异型胶输出数据
-    #list_region: list类型，想显示的单(多)区域，为None的时候默认显示所有区域
-    #show_OK：是否显示OK的区域，默认为True(显示)，置false时OK不显示（NG强制显示）
-    #font_size:显示字体
-    #line_width：显示线宽
-    #b_show_cof：True COF显示黄色与详细数据  False COF显示绿色及屏蔽详细数据
+    # Dùng để vẽ vùng ROI kiểm tra
+    # guiArray : GuiArray dùng để hiển thị
+    # str_info : dữ liệu đầu ra keo hình dạng đặc biệt
+    # list_region: kiểu list, vùng (hoặc nhiều vùng) muốn hiển thị, nếu là None thì mặc định hiển thị tất cả các vùng
+    # show_OK: có hiển thị vùng OK hay không, mặc định là True (hiển thị), nếu đặt false thì vùng OK không hiển thị (vùng NG bắt buộc hiển thị)
+    # font_size: cỡ chữ hiển thị
+    # line_width: độ rộng đường kẻ hiển thị
+    # b_show_cof: True thì COF hiển thị màu vàng và dữ liệu chi tiết, False thì COF hiển thị màu xanh lá và ẩn dữ liệu chi tiết
     def show_detetion_Region(self,guiArray,str_info,list_region=None,show_OK=True,font_size=40,line_width=3,b_show_cof=True):
         #obj = json.loads(str_info)
         revise_OF_index=True#溢胶序号重新排序
@@ -1902,35 +1903,35 @@ class glue_display():
                 guiArray.Add(imageShowTextXY(X,Y,str_out,clr,font_size))
         return guiArray
 
-    #用显示NG信息
-    #guiArray :显示用GuiArray
-    #str_info :异型胶输出数据
-    #list_region: 单个int型数据，从0开始
-    #font_size：显示字体大小
-    #offset_x：显示偏移量X（基准检测ROI质心的偏移量）
-    #offset_y：显示偏移量y（基准检测ROI质心的偏移量）
-    #line_space:显示线宽
-    #b_show_cof：True COF显示黄色与详细数据  False COF显示绿色及屏蔽详细数据
+    # Dùng để hiển thị thông tin NG
+    # guiArray : Đối tượng GuiArray dùng để hiển thị
+    # str_info : Dữ liệu đầu ra kiểm tra keo dị hình (dạng JSON)
+    # list_region : Giá trị int đơn, biểu thị số thứ tự vùng cần hiển thị (bắt đầu từ 0)
+    # font_size : Cỡ chữ hiển thị
+    # offset_x : Độ lệch hiển thị theo trục X (so với trọng tâm ROI kiểm tra)
+    # offset_y : Độ lệch hiển thị theo trục Y (so với trọng tâm ROI kiểm tra)
+    # line_space : Khoảng cách giữa các dòng hiển thị
+    # b_show_cof : True hiển thị COF màu vàng và thông tin chi tiết; False hiển thị COF màu xanh và ẩn thông tin chi tiết
     def show_NG_data(self,guiArray,str_info,show_region,font_size=40,offset_x=0,offset_y=0,line_space=0,b_show_cof=True):
         #obj = json.loads(str_info)
         obj=str_info
-        ###获取溢胶区域索引
+        ### Lấy chỉ số vùng keo tràn
         over_flow_index=[]
         for i in range(0,obj["base_info"]["region_number"]):
             key ="region_{index}".format(index = i)   
             region_type = obj["region_info"][key]["info_base"]["type"]
             if region_type =="overflow":
                 over_flow_index.append(i)
-        #错误信息提示
+        # Thông báo lỗi
         if show_region>obj["base_info"]["region_number"]-1:
             str_error_msg="显示区域索引{}超出工具索引{}".format(show_region,obj["base_info"]["region_number"]-1)
             raise ValueError(str_error_msg)
         obj_region = obj["region_info"]
         index = "region_{index}".format(index = show_region)
         nums=0
-        #区域类型
+        # Phân loại vùng
         region_type = obj_region[index]["info_base"]["type"]
-        #胶宽信息
+        # Thông tin chiều rộng keo
         obj_width = obj_region[index]["region_info_width"]
         error_code = obj_width["error_code"]
         obj_width_enable = obj_width["enable"]
@@ -1952,12 +1953,12 @@ class glue_display():
                 pos_x = self.n_image_width - pos_x
             elif self.n_mirror_mode == 2:
                 pos_y = self.n_image_height - pos_y
-            #显示
+            # Hiển thị
             if  (error_code==1)  or (error_code==2 and b_show_cof==True): 
                 guiArray.Add(imageShowTextXY(pos_x,pos_y,str_out,glue_display.get_color(error_code,b_show_cof),font_size))
 
-            
-        #面积信息
+        
+        # Thông tin diện tích keo
         obj_area = obj_region[index]["region_info_area"]
         error_code = obj_area["error_code"]
         obj_area_enable = obj_area["enable"]
@@ -1979,11 +1980,11 @@ class glue_display():
                 pos_x = self.n_image_width - pos_x
             elif self.n_mirror_mode == 2:
                 pos_y = self.n_image_height - pos_y           
-            #显示
+            # Hiển thị
             if  (error_code==1)  or (error_code==2 and b_show_cof==True): 
                 guiArray.Add(imageShowTextXY(pos_x,pos_y,str_out,glue_display.get_color(error_code,b_show_cof),font_size))
  
-        #胶占比信息
+        # Thông tin tỷ lệ keo phủ
         obj_area_shift = obj_region[index]["region_info_areashift"]
         error_code = obj_area_shift["error_code"]
         #print(error_code)
@@ -2099,20 +2100,22 @@ class glue_display():
 class detection_operator():
     obj_single = json.loads("""{}""")  
     error_code_total = 0
-    # info_base
+    # Thông tin cơ bản vùng kiểm tra
     str_base_info = """{"index":0,"error_code":0,"position":{"x":0,"y":0}}"""
-    # detection info 检测类型和个数
+    # Thông tin các loại lỗi phát hiện (số lượng từng loại)
     str_detection_info = """{"width_much":0,"width_less":0,"width_off":0,
 "shift_over":0,"shift_lack":0,"hole":0,"area_over":0,"area_lack":0,
 "residue":0,"overflow":0,"spot":0,"sparse":0,"tail":0}"""
-    # normal info 普通检测内容：其它检测项
+    # Thông tin kiểm tra thông thường (loại lỗi đơn giản)
     str_normal_info = """{"error_code":0,"enable":true,"current_val":0,"lower_spec":0,"upper_spec":0}"""
     obj_normal = json.loads(str_normal_info)
-    # extend info 检测扩展内容：胶宽及胶偏
+    # Thông tin mở rộng kiểm tra (thông số như độ rộng, vị trí,...)
     str_normal_info_ex = """{"error_code":0,"enable":true,"average_val":0,"min_val":0,"max_val":0,
 "lower_spec":0,"upper_spec":0,
 "max_start_pt":{"x":0,"y":0},"max_end_pt":{"x":0,"y":0},
 "min_start_pt":{"x":0,"y":0},"min_end_pt":{"x":0,"y":0}}"""
+
+    # Gán các thông tin vào đối tượng đơn vùng kiểm tra
     obj_normal_ex = json.loads(str_normal_info_ex)
     obj_single["info_base"] = json.loads(str_base_info)
     obj_single["region_info_detection"] = json.loads(str_detection_info)
@@ -2123,23 +2126,25 @@ class detection_operator():
     obj_single["region_info_spot"] = obj_normal
     obj_single["region_info_aspectratio"] = obj_normal
     obj_single["region_info_areashift"] = obj_normal
+
+    # Đối tượng tổng hợp kết quả kiểm tra
     obj_total = json.loads("""{}""")       
     
     def __init__(self):
         self;
 
-    # region_info_width    
+    # Hàm thiết lập thông tin về độ rộng keo
     def set_width(cur_mean,cur_max,cur_min,spec_max,spec_min,error_code):
-        # 测量值赋值
+        # Cập nhật giá trị đo được
         detection_operator.obj_single["region_info_width"]["average_val"] = cur_mean
         detection_operator.obj_single["region_info_width"]["min_val"] = cur_min
         detection_operator.obj_single["region_info_width"]["max_val"] = cur_max
         detection_operator.obj_single["region_info_width"]["lower_spec"] = spec_min
         detection_operator.obj_single["region_info_width"]["upper_spec"] = spec_max
-        # 刷新错误码
+        # Cập nhật mã lỗi
         detection_operator.obj_single["region_info_width"]["error_code"] = error_code
         detection_operator.error_code_total = error_code
-        # 刷新检测结果
+        # Cập nhật trạng thái kiểm tra tổng thể
         if cur_min == 0:
             detection_operator.obj_single["region_info_detection"]["width_off"] = 1
         if cur_min < spec_min:
@@ -2154,10 +2159,10 @@ class detection_operator():
         detection_operator.obj_single["region_info_shift"]["max_val"] = cur_max
         detection_operator.obj_single["region_info_shift"]["lower_spec"] = spec_min
         detection_operator.obj_single["region_info_shift"]["upper_spec"] = spec_max
-        # 刷新错误码
+        # Cập nhật mã lỗi
         detection_operator.obj_single["region_info_shift"]["error_code"] = error_code
         detection_operator.error_code_total = error_code
-        # 刷新检测结果
+        # Cập nhật trạng thái kiểm tra tổng thể
         if cur_min < spec_min:
             detection_operator.obj_single["region_info_detection"]["shift_lack"] = 1
         if cur_max > spec_max:
@@ -2204,17 +2209,22 @@ class detection_operator():
         detection_operator.error_code_total = error_code
         return True                         
     def get_result(strOrg):
-        # 生成total info
+        # Chuyển chuỗi JSON đầu vào thành đối tượng
+        # Tạo thông tin tổng hợp từ chuỗi JSON đầu vào
         detection_operator.obj_total = json.loads(strOrg)
-        # region number 需要重新计算
+        # Lấy số vùng hiện tại, cần tính lại
         region_num = detection_operator.obj_total["base_info"]["region_number"]
+        # Tăng số vùng lên 1
         detection_operator.obj_total["base_info"]["region_number"] = region_num + 1       
-        # 刷新region index
+        # Cập nhật chỉ số vùng mới cho đối tượng đơn vùng kiểm tra
         detection_operator.obj_single["info_base"]["index"] = region_num + 1
-        # 刷新error_code
+        # Cập nhật mã lỗi tổng cho đối tượng đơn vùng kiểm tra
         detection_operator.obj_single["error_code"] = detection_operator.error_code_total
-        region_index = """region_{n}""".format(n = region_num)
+        # Tạo khóa vùng mới
+        region_index = f"region_{region_num}"
+        # Thêm đối tượng đơn vùng kiểm tra vào thông tin vùng tổng hợp
         detection_operator.obj_total["region_info"][region_index] = detection_operator.obj_single
+        # Trả về đối tượng tổng hợp sau khi cập nhật
         return detection_operator.obj_total
 
 class database_operator():
