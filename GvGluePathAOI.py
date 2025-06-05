@@ -2887,13 +2887,20 @@ class database_operator():
 
 class result_operator():
 
-    # 整体检测结果操作对象
+    # Đối tượng thao tác kết quả kiểm tra tổng thể
     obj_total = json.loads("""{}""")  
-    
-    # 用于自检测数据替换
-    # list_data用于替换的数据，list型数据
-    # list_region用于替换的区域，list型数据
-    # types用于替换的数据类型，int型数据,2表示胶偏 3表示孔洞 4表示面积 5表示胶占比 6表示偏移X  7表示偏移Y
+
+    # Dùng để thay thế dữ liệu kiểm tra
+    # list_data: dữ liệu dùng để thay thế, kiểu list
+    # list_region: vùng cần thay thế, kiểu list
+    # types: kiểu dữ liệu cần thay thế, kiểu int
+    #    2 biểu thị lệch keo
+    #    3 biểu thị lỗ hổng
+    #    4 biểu thị diện tích
+    #    5 biểu thị tỷ lệ keo
+    #    6 biểu thị dịch chuyển X
+    #    7 biểu thị dịch chuyển Y
+
     def data_replace(self,str_info,list_data,list_region,types=1,b_show_lackglue=True):
         #校检数据长度和区域长度是否一致
         #obj = json.loads(str_info)

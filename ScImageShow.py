@@ -212,15 +212,15 @@ class ScImageShow:
     新版本函数
     '''
 
-    #用XY 表示需要显示的位置文字
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #posX double类型，表示X位置
-    #posY double类型，表示Y位置
-    #strmsg string类型，表示需要显示的内容
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #lFontSize，int类型，字体大小
-    #degree double类型默认角度0.0°
+    # Dùng XY để biểu thị vị trí văn bản cần hiển thị
+    # self: bản thân lớp ScImageShow
+    # guiArray: mảng hiển thị guiArray
+    # posX: kiểu double, biểu thị vị trí X
+    # posY: kiểu double, biểu thị vị trí Y
+    # strmsg: kiểu string, nội dung cần hiển thị
+    # clrLineColor: kiểu RGB, mặc định [0, 255, 0] màu xanh lá
+    # lFontSize: kiểu int, cỡ chữ
+    # degree: kiểu double, góc xoay, mặc định 0.0°
     def ImageShowTextXY(self,guiArray,posX=100,posY=100,strmsg="hello",clrLineColor = [0, 255, 0],lFontSize = 100,degree=0.0):
     # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
@@ -750,27 +750,27 @@ class ScImageShow:
                 else:
                     self.ImageShowLineSegVec(self, guiArray, StartPos, EndPos, [0, 255, 0], nowidth, 1)  # 两点显示线段
 
-    # 显示一连串数据
-    # self 类本身ScImageShow
-    # guiArray 显示数组
-    # info 待显示列表
-    # info为 二维数组
-    #info=[[status],\           一位，原则上只能显示OK/NG, OK默认显示绿色 / NG默认显示红色，第一行只能显示OK/NG
-    #["SN",SN],\                两位，第一位是名字，第二位是实际的数值
-    #["Cavity",cavityN],\
-    #["Nozzle",NozzleN],\
-    #[],\         空格表示空白行
-    #[],\
-    #[],\
-    #[],\
-    #["length","mm",0.5,0.1,0.8],\   五位， 第一位是名字，第二位是单位，第三位是实际数值，第四位是最小值，第五位是最大值
-    #["length2","mm",0.5,0.1,0.7],\
-    #["length3","mm",0.5,0.1,0.6],\
-    #["length2","mm",0.5,0.1,0.5],\
-    #["length2","mm",0.5,0.6,0.8],\
-    #["CT","ms",100,90,250]]
-    # fontsizesize 尺寸大小  默认50
-    # 颜色NG为红色，OK为绿色
+    # Hiển thị một chuỗi dữ liệu
+    # self: bản thân lớp ScImageShow
+    # guiArray: mảng hiển thị
+    # info: danh sách cần hiển thị
+    # info là mảng 2 chiều
+    # info=[[status],\           1 phần tử, về nguyên tắc chỉ hiển thị OK/NG, OK mặc định màu xanh lá / NG mặc định màu đỏ, dòng đầu chỉ hiển thị OK/NG
+    # ["SN",SN],\                2 phần tử, phần tử đầu là tên, phần tử thứ hai là giá trị thực tế
+    # ["Cavity",cavityN],\
+    # ["Nozzle",NozzleN],\
+    # [],\         dòng trống biểu thị dòng trắng
+    # [],\
+    # [],\
+    # [],\
+    # ["length","mm",0.5,0.1,0.8],\   5 phần tử, phần tử đầu là tên, thứ hai là đơn vị, thứ ba là giá trị thực tế, thứ tư là giá trị nhỏ nhất, thứ năm là giá trị lớn nhất
+    # ["length2","mm",0.5,0.1,0.7],\
+    # ["length3","mm",0.5,0.1,0.6],\
+    # ["length2","mm",0.5,0.1,0.5],\
+    # ["length2","mm",0.5,0.6,0.8],\
+    # ["CT","ms",100,90,250]]
+    # fontsizesize: kích thước chữ, mặc định là 50
+    # màu NG là đỏ, OK là xanh lá
 
     def ListShow(self,guiArray, info, fontsize=50,PosX=0,PosY=0):
         # 获取 GUI 显示数组——重要初始化显示数组
@@ -834,14 +834,15 @@ class ScImageShow:
             self.ImageShowTextXY(self,guiArray, 50+PosX, round((len(info)+1) * fontsize)+PosY, info[0][1], rgb, round(fontsize * 1.5))
 
 
-    # 显示水印信息
-    # self 类本身ScImageShow
-    # guiArray 显示数组
-    # StrInfo 待显示水印信息 string 类型
-    # EngVer 版本号 string 类型  XX.XX 大小版本
-    # height 图像高度 默认2048
-    # fontsizesize 尺寸大小  默认50
-    # rgb=[200, 200, 200] 颜色，默认白色
+    # Hiển thị thông tin watermark (chữ mờ)
+    # self: bản thân lớp ScImageShow
+    # guiArray: mảng hiển thị
+    # StrInfo: thông tin watermark cần hiển thị, kiểu string
+    # EngVer: phiên bản, kiểu string, dạng XX.XX (phiên bản lớn/nhỏ)
+    # height: chiều cao ảnh, mặc định là 2048
+    # fontsizesize: kích thước chữ, mặc định là 50
+    # rgb = [200, 200, 200]: màu sắc, mặc định là trắng
+
     def MetaShow(self,guiArray, StrInfo, EngVer, height=2048, fontsize=50, rgb=[200, 200, 200]):
         info = StrInfo.split(",")
         Meta_Version = info[0]
