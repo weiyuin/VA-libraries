@@ -1,0 +1,64 @@
+{
+  "base_info": {
+    "region_number": 6,
+    "error_code": 0,
+    "SN": "ABE000123456F"
+  },
+  "region_info": {
+    "region_0": {
+      "info_base": {
+        "error_code": 0,
+        "type": "normal"
+      },
+      "region_info_area": {
+        "current_val": 132.5,
+        "lower_spec": 0.0,
+        "upper_spec": 9999.0,
+        "enable": true,
+        "error_code": 0
+      },
+      "region_info_width": {
+        "min_val": 0.85,
+        "lower_spec": 1.0,
+        "enable": true,
+        "error_code": 0
+      },
+      "region_info_areashift": {
+        "current_val": 0.6,
+        "enable": true,
+        "error_code": 0
+      },
+      "region_info_hole": {
+        "current_val": 0.0,
+        "enable": true,
+        "error_code": 0
+      }
+    }
+  },
+  "detection_gap_info": {
+    "num": 1,
+    "0": {
+      "info": {
+        "width": 3.2
+      },
+      "contour": {
+        "0": {"X": 100, "Y": 200},
+        "1": {"X": 110, "Y": 200}
+      }
+    }
+  },
+  "detection_overflow_info": {
+    "num": 2,
+    "0": {
+      "contour": {
+        "0": {"X": 50, "Y": 100},
+        "1": {"X": 60, "Y": 110}
+      }
+    }
+  },
+  "glue_length_info": {
+    "current_val": 145.3,
+    "enable": true,
+    "error_code": 0
+  }
+}

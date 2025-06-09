@@ -3491,36 +3491,36 @@ class result_operator():
         return obj
 
 class mes_upload():
-    # 缺陷字典
+    # Từ điển lưu thông tin lỗi
     __dict_info = {}
 
-    # 拍摄姿态
+    # Tư thế chụp ảnh
     __pos_index = 1
 
-    # 结果格式化位数
+    # Số chữ số sau dấu thập phân cho giá trị kết quả
     n_format_val = 2
 
-    # 上下限格式化位数
+    # Số chữ số sau dấu thập phân cho giới hạn trên/dưới
     n_format_spec = 2
 
-    # 设置结果格式化位数
+    # Thiết lập số chữ số sau dấu thập phân cho giá trị kết quả
     def set_val_format(self,n_format):
         self.n_format_val = n_format
 
-    # 设置上下限格式化位数
+    # Thiết lập số chữ số sau dấu thập phân cho giới hạn trên/dưới
     def set_spec_format(self,n_format):
         self.n_format_spec = n_format
 
-    # 获取当前姿态字符串
-    # get_mes_info: 缺陷信息
-    # pos: 产品姿态
-    # upload_spec：是否上传COF的spec，默认false不上传，true上传
+    # Lấy chuỗi tư thế hiện tại
+    # get_mes_info: Thông tin lỗi (defect info)
+    # pos: Tư thế của sản phẩm
+    # upload_spec: Có tải lên thông số COF hay không, mặc định là false (không tải lên), true là tải lên
     def get_mes_info(self,dict_info,pos,upload_spec=False):
         self.__dict_info = dict_info
         self.__pos_index = pos
 
         region_num = dict_info["base_info"]["region_number"]
-        # 判断汇总结果
+        # Xác định kết quả tổng hợp
         str_out = "1"
         for i_region in range(0,region_num):
             str_region = "region_{}".format(i_region)
@@ -3532,15 +3532,15 @@ class mes_upload():
 
         return str_out
 
-    # 获取当前姿态字符串(带胶长和ShiftX/ShiftY信息)
-    # get_mes_info_ex: 缺陷信息
-    # pos: 产品姿态
-    # upload_spec：是否上传COF的spec，默认false不上传，true上传
+    # Lấy chuỗi tư thế hiện tại (kèm thông tin chiều dài keo và dịch chuyển X/Y)
+    # get_mes_info_ex: thông tin lỗi
+    # pos: tư thế sản phẩm
+    # upload_spec: có tải lên giới hạn COF hay không, mặc định là false (không tải), true là tải lên
     def get_mes_info_ex(self,dict_info,pos,upload_spec=False):
         self.__dict_info = dict_info
         self.__pos_index = pos
         region_num = dict_info["base_info"]["region_number"]
-        # 判断汇总结果
+        # Xác định kết quả tổng hợp
         str_out = "1"
         if self.__trans_error(dict_info["base_info"]["error_code"]) == 0:
             str_out = "0"
@@ -3549,12 +3549,12 @@ class mes_upload():
             str_out = str_out + self.__get_upload(i_region,True,upload_spec)
         return str_out
 
-    # 处理当前上传数据，满足当前上传格式-主要用于38单姿态上传
-    # str_in: 胶检返回的上传数据
-    # n_choose: 选择1或2，1为科瑞恩机台；2为其他（按ICT指定格式）
-    # b_upload_mode：是否降级上传，true降级(NG为COF，COF为OK，errorcode强制为1),false正常上传
-    # list_ex_data:选择1时需要额外补充数据(不能为空，主要是截图路径和是否回流补胶信号)
-    # b_open_recheck:是否开启复检（True开启，上传实际检测结果；False关闭复检，上传强制OK结果）
+    # Xử lý dữ liệu upload hiện tại, đáp ứng định dạng upload hiện tại - chủ yếu dùng cho trường hợp một tư thế của model 38
+    # str_in: dữ liệu upload trả về từ kiểm tra keo
+    # n_choose: chọn 1 hoặc 2, 1 là cho máy (科瑞恩); 2 là cho hệ thống khác (theo định dạng ICT quy định)
+    # b_upload_mode: có bật chế độ upload hạ cấp không; True = hạ cấp (NG chuyển thành COF, COF chuyển thành OK, errorcode ép bằng 1), False = upload bình thường
+    # list_ex_data: bắt buộc có khi chọn 1, dùng để bổ sung dữ liệu như đường dẫn ảnh chụp màn hình và tín hiệu có hồi keo lại hay không
+    # b_open_recheck: có bật chức năng kiểm tra lại hay không; True = bật (upload kết quả kiểm tra thực tế), False = tắt (upload kết quả ép thành OK)
     def get_mes_data(self, str_in, b_upload_mode=False, n_choose=2, list_ex_data=[], b_open_recheck=True):
         if n_choose==1 and  len(list_ex_data)!=2:
             raise ValueError("请正确输入额外补充数据（截图路径与回流补胶信号）")
@@ -3600,14 +3600,14 @@ class mes_upload():
 
         return str_out
 
-    # 处理当前上传数据，满足当前上传格式-主要用于39多姿态综合上传
-    # list_str_in: 数组,胶检返回的上传的所有数据,按姿态顺序进行排列
-    # list_no_glue_state:数组,各个姿态的有无胶结果,按姿态顺序进行排列
-    # n_choose: 选择1或2，1为科瑞恩机台；2为其他（按ICT指定格式）
-    # b_upload_mode：是否降级上传，true降级(NG为COF，COF为OK，errorcode强制为1),false正常上传
-    # list_ex_data:数组,不能为空，选择1时要填入截图路径和是否回流补胶信号；选择2时要填入复检数据LOG文档所在位置及图片压缩位置
-    # list_ex_up_load_imgs_pama：数组,不能为空，填入Mes压缩检测的图片数据及SPEC,格式必须先实际检测数量，数量SPEC
-    # b_open_recheck:是否开启复检（True开启，上传实际检测结果；False关闭复检，上传强制OK结果）
+    # Xử lý dữ liệu upload hiện tại, đáp ứng định dạng upload hiện tại - chủ yếu dùng cho model 39 với nhiều tư thế (multi-pose) upload tổng hợp
+    # list_str_in: danh sách dữ liệu upload trả về từ kiểm tra keo, sắp xếp theo thứ tự các tư thế
+    # list_no_glue_state: danh sách trạng thái có keo/không keo tương ứng với mỗi tư thế, cũng theo thứ tự
+    # n_choose: chọn 1 hoặc 2, 1 là cho máy (科瑞恩); 2 là cho hệ thống khác (theo định dạng ICT quy định)
+    # b_upload_mode: có bật chế độ upload hạ cấp không; True = hạ cấp (NG chuyển thành COF, COF chuyển thành OK, errorcode ép bằng 1), False = upload bình thường
+    # list_ex_data: danh sách, không được để trống; nếu chọn 1 thì cần điền đường dẫn ảnh chụp và tín hiệu có hồi keo; nếu chọn 2 thì cần điền vị trí file log kiểm tra lại và vị trí ảnh nén
+    # list_ex_up_load_imgs_pama: danh sách, không được để trống; điền dữ liệu ảnh nén kiểm tra gửi lên MES và thông tin SPEC. Định dạng: trước là số lượng ảnh thực tế, sau là SPEC tương ứng với số lượng đó
+    # b_open_recheck: có bật chức năng kiểm tra lại hay không; True = bật (upload kết quả thực tế), False = tắt (ép kết quả upload thành OK)
     def get_mes_data_Ex(self,list_str_in,list_no_glue_state,n_choose=2,list_ex_data=[],list_ex_up_load_imgs_pama=[],b_upload_mode=True,b_open_recheck=True):
         if len(list_str_in) == 0:
             raise ValueError("请正确输入胶检数据")

@@ -246,13 +246,13 @@ class ScImageShow:
         return True
 
 
-    # 新用二维向量的位置显示文字
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #pos ScVector类型，表示显示位置
-    #strmsg string类型，表示需要显示的内容
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #lFontSize，int类型，字体大小
+    # Hiển thị văn bản tại vị trí sử dụng vector hai chiều mới
+    # self: bản thân lớp ScImageShow
+    # guiArray: mảng hiển thị guiArray
+    # pos: kiểu ScVector, biểu thị vị trí hiển thị
+    # strmsg: kiểu string, nội dung cần hiển thị
+    # clrLineColor: kiểu RGB, mặc định là [0, 255, 0] (màu xanh lá)
+    # lFontSize: kiểu int, cỡ chữ
     def ImageShowTextPos(self,guiArray,pos,strmsg="hello",clrLineColor=[0, 255, 0],lFontSize=100):
         # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
