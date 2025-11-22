@@ -7,11 +7,11 @@ from ScFile import ScFile
 from GvAsyncLog import GvLog
 
 class ScMsgReport:
-    #用于日志记录的时间格式
+    # Định dạng thời gian dùng để ghi log
     def GetstrCurTimeMS(self):
         return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S:%f')
 
-    # 用于日志记录的时间格式
+    # Định dạng thời gian dùng để ghi log
     def GetstrCurTimeS(self):
         return datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
@@ -25,22 +25,20 @@ class ScMsgReport:
         return datetime.datetime.now().strftime('%Y')
 
     def __writefile(self, LocalLogPath, strCon):
-        # 存储
+        # Lưu trữ
         try:
             with open(LocalLogPath, 'a') as f:
                 f.write(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S:%f->\t') + strCon + "\n")
         finally:
             pass
 
-
-
-    #记录日志 #可以把日志记录在指定的文件夹路径下面，下面的指定文件名
-    #filePath 路径名称，文件存储在这个文件夹下面的日期文件夹（自动建）
-    #filename 日志文件路径，没有则新建，默认 日期当天.txt
-    #cmdWrite 日志文件内容。默认 hello
+    # Ghi log # Có thể ghi log vào đường dẫn thư mục chỉ định, với tên file bên dưới
+    # filePath: Tên đường dẫn, file được lưu trong thư mục ngày tháng bên dưới thư mục này (tự động tạo)
+    # filename: Đường dẫn file log, nếu chưa có thì tạo mới, mặc định là Ngày_hiện_tại.txt
+    # cmdWrite: Nội dung file log. Mặc định là hello
     @staticmethod
     def RecordMsgDate(filePath, filename="Null.txt", cmdWrite="Hello"):
-        # 将收到的内容写入Log
+        # Ghi nội dung nhận được vào Log
         path = ScFile.mkdirDate(filePath)
 
         #print(path)
@@ -48,17 +46,17 @@ class ScMsgReport:
             filename = time.strftime("%m%d.txt")
             #print(filename)
 
-        # 创建一个带参数的线程对象
+        # Tạo một đối tượng luồng (thread) có tham số
         thread = threading.Thread(target=ScMsgReport.__writefile, args=(ScMsgReport, path + "\\" + filename, cmdWrite))
         thread.start()
 
-    #记录日志 #可以把日志记录在指定的文件夹路径下面，下面的指定文件名
-    #filePath 路径名称
-    #filename 日志文件路径，没有则新建，日期当天.txt
-    #cmdWrite 日志文件内容。默认 hello
+    # Ghi log # Có thể ghi log vào đường dẫn thư mục chỉ định, với tên file bên dưới
+    # filePath: Tên đường dẫn
+    # filename: Đường dẫn file log, nếu chưa có thì tạo mới, mặc định là Ngày_hiện_tại.txt
+    # cmdWrite: Nội dung file log. Mặc định là hello
     @staticmethod
     def RecordMsgFolder(filePath, filename="Null.txt", cmdWrite="Hello"):
-        # 将收到的内容写入Log
+        # Ghi nội dung nhận được vào Log
         path = ScFile.mkdirFolder(filePath)
 
         #print(path)
@@ -68,25 +66,25 @@ class ScMsgReport:
         thread = threading.Thread(target=ScMsgReport.__writefile, args=(ScMsgReport, path + "\\" + filename, cmdWrite))
         thread.start()
 
-    #记录日志 #可以把日志记录在指定的文件夹路径下面，下面的指定文件名，日志名称自动指定为 日期当天.txt
-    #filePath 路径名称
-    #cmdWrite 日志文件内容。默认 hello
+    # Ghi log # Có thể ghi log vào đường dẫn thư mục chỉ định, với tên file bên dưới, tên log tự động đặt là Ngày_hiện_tại.txt
+    # filePath: Tên đường dẫn
+    # cmdWrite: Nội dung file log. Mặc định là hello
     @staticmethod
     def RecordAutoLog(filePath, cmdWrite="Hello"):
-        # 将收到的内容写入Log
+        # Ghi nội dung nhận được vào Log
         path = ScFile.mkdirFolder(filePath)
         filename = time.strftime("%m%d.txt")
 
         thread = threading.Thread(target=ScMsgReport.__writefile, args=(ScMsgReport,path + "\\" + filename, cmdWrite))
         thread.start()
 
-    #记录日志 #可以把日志记录在指定的文件夹路径下面，下面的指定文件名，日志名称自动指定为 日期当天.txt
-    #filePath 路径名称
-    #cmdWrite 日志文件内容。默认 hello
+    # Ghi log # Có thể ghi log vào đường dẫn thư mục chỉ định, với tên file bên dưới, tên log tự động đặt là Ngày_hiện_tại.txt
+    # filePath: Tên đường dẫn
+    # cmdWrite: Nội dung file log. Mặc định là hello
     @staticmethod
     def RecordAutoPathLog(cmdWrite="Hello",filePath="D:\\LusterCache\\log",file="Null",bMessage=True,bEnable=True):
         #filePath="D:\\LusterCache\\log"
-        # 将收到的内容写入Log
+        # Ghi nội dung nhận được vào Log
         path = ScFile.mkdirFolder(filePath)
         if file=="Null":
             filename = time.strftime("%m%d.txt")
@@ -100,42 +98,42 @@ class ScMsgReport:
             GvVisionAssembly.ReportMessage(cmdWrite, Genote.eMRTNote,False)
 
 
-    #报告提示消息
+    # Báo cáo tin nhắn thông báo
     def ReportMsg(cmdMsg="Hello",bPumpOut=True):
-        # 将收到的内容写入Log
-        # 在提示中提示收到的信息
+        # Ghi nội dung nhận được vào Log
+        # Hiển thị thông tin nhận được trong thông báo
         Genote = GvVisionAssembly.GeMsgReportType
         noteType = Genote.eMRTNote
         GvVisionAssembly.ReportMessage(cmdMsg, noteType, bPumpOut)
 
-    #报告警告
+    # Báo cáo cảnh báo (Warning)
     def ReportMsgWarn(cmdMsg="Hello",bPumpOut=True):
-        # 将收到的内容写入Log
-        # 在提示中提示收到的信息
+        # Ghi nội dung nhận được vào Log
+        # Hiển thị thông tin nhận được trong thông báo
         Genote = GvVisionAssembly.GeMsgReportType
         noteType = Genote.eMRTWarning
         GvVisionAssembly.ReportMessage(cmdMsg, noteType, bPumpOut)
 
-    #报告错误提示
+    # Báo cáo lỗi (Error)
     def ReportMsgError(cmdMsg="Hello",bPumpOut=True):
-        # 将收到的内容写入Log
-        # 在提示中提示收到的信息
+        # Ghi nội dung nhận được vào Log
+        # Hiển thị thông tin nhận được trong thông báo
         Genote = GvVisionAssembly.GeMsgReportType
         noteType = Genote.eMRTError
         GvVisionAssembly.ReportMessage(cmdMsg, noteType, bPumpOut)
 
-    #报告弹出提示
+    # Báo cáo dạng cửa sổ bật lên (Popup)
     def ReportMsgPop(cmdMsg="Hello", bPumpOut=True):
-        # 将收到的内容写入Log
-        # 在提示中提示收到的信息
+        # Ghi nội dung nhận được vào Log
+        # Hiển thị thông tin nhận được trong thông báo
         Genote = GvVisionAssembly.GeMsgReportType
         noteType = Genote.eMRTPopupNote
         GvVisionAssembly.ReportMessage(cmdMsg, noteType, bPumpOut)
 
-    #报告自定义提示框，带返回值
+    # Báo cáo hộp thoại tùy chỉnh, có giá trị trả về
     def ReportMsgOption(cmdMsg="Hello", bPumpOut=True):
-        # 将收到的内容写入Log
-        # 在提示中提示收到的信息
+        # Ghi nội dung nhận được vào Log
+        # Hiển thị thông tin nhận được trong thông báo
         Genote = GvVisionAssembly.GeMsgReportType
         noteType = Genote.eMRTResultOption
         ans = GvVisionAssembly.ReportMessage(cmdMsg, noteType, bPumpOut)

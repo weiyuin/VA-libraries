@@ -2,7 +2,6 @@ import os
 
 def traverse_files(fileDirPath, SN, nPos):
     imagefiles = []
-    
     # Bước 1: Duyệt toàn bộ thư mục và thư mục con, tìm file có chứa SN
     for root, dirs, files in os.walk(fileDirPath):
         for file in files:
