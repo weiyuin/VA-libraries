@@ -1,19 +1,19 @@
 import sys
-#sys.path.append(r'C:\Program Files\VISIONAssembly_x64')
+# sys.path.append(r'C:\Program Files\VISIONAssembly_x64')
 import GvVisionAssembly
 import math
 
-#即可，路径名即为pyd文件所在的路径
+# Đã được, chỉ cần để đường dẫn là thư mục chứa file .pyd là xong
 
 class ScImageShow:
     '''
-    旧版本程序，内部调用
+    Chương trình phiên bản cũ, dùng nội bộ
     '''
 
     '''
-    旧版本函数
+    Hàm phiên bản cũ
     '''
-# 用XY表示需要显示的位置文字@
+# Dùng XY để biểu diễn vị trí hiển thị của chuỗi văn bản cần hiện @
     @staticmethod
     def imageShowTextXY(posX=100, posY=100, strmsg="hello", clrLineColor=[0, 255, 0], lFontSize=100):
         # 设置GUI格式
@@ -142,13 +142,13 @@ class ScImageShow:
 
         return guiLineSeg
 
-    #显示向量类型的十字
-    #self 类本身ScImageShow
-    #Vec 二维向量位置位置（含角度）
-    #guiArray 显示数组
-    #size 尺寸大小
-    #clrLineColor 显示颜色
-    #nLineWidth 线宽
+    # Hiển thị dấu chữ thập (cross) theo kiểu vector
+    # self         : chính là đối tượng lớp ScImageShow
+    # Vec          : vector 2D chứa vị trí và góc xoay (x, y, angle)
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # size         : kích thước của dấu chữ thập (độ dài mỗi nhánh)
+    # clrLineColor : màu vẽ đường line
+    # nLineWidth   : độ dày nét vẽ
     def imagechowCrossVec(self,Vec,clrLineColor = [0, 255, 0],nLineWidth = 1):
         # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
@@ -169,13 +169,13 @@ class ScImageShow:
 
 
 
-    # 显示位置姿态类型的十字
-    #self 类本身ScImageShow
-    #Cood 位置姿态生成的位置（含角度）
-    #guiArray 显示数组
-    #size 尺寸大小
-    #clrLineColor 显示颜色
-    #nLineWidth 线宽
+    # Hiển thị十字 (dấu chữ thập) theo vị trí và tư thế (pose)
+    # self         : chính là đối tượng lớp ScImageShow
+    # Cood         : tọa độ + góc xoay (pose) cần vẽ
+    # guiArray     : mảng ảnh để hiển thị/vẽ lên
+    # size         : kích thước của十字 (chiều dài mỗi nhánh)
+    # clrLineColor : màu vẽ đường line
+    # nLineWidth   : độ dày nét vẽ
     def imagechowCrossCood(self, Cood,guiArray, size=10,clrLineColor=[0, 255, 0], nLineWidth=1):
     # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
@@ -212,15 +212,15 @@ class ScImageShow:
     新版本函数
     '''
 
-    # Dùng XY để biểu thị vị trí văn bản cần hiển thị
-    # self: bản thân lớp ScImageShow
-    # guiArray: mảng hiển thị guiArray
-    # posX: kiểu double, biểu thị vị trí X
-    # posY: kiểu double, biểu thị vị trí Y
-    # strmsg: kiểu string, nội dung cần hiển thị
-    # clrLineColor: kiểu RGB, mặc định [0, 255, 0] màu xanh lá
-    # lFontSize: kiểu int, cỡ chữ
-    # degree: kiểu double, góc xoay, mặc định 0.0°
+    # Hiển thị text tại tọa độ XY (có thể xoay góc)
+    # self         : chính instance của lớp ScImageShow
+    # guiArray     : mảng ảnh để vẽ chữ lên (buffer hiển thị)
+    # posX         : tọa độ X (kiểu double)
+    # posY         : tọa độ Y (kiểu double)
+    # strmsg       : chuỗi văn bản cần hiển thị (string)
+    # clrLineColor : màu chữ, định dạng RGB, mặc định [0, 255, 0] → xanh lá
+    # lFontSize    : cỡ chữ (int)
+    # degree       : góc xoay chữ (độ), mặc định 0.0 (không xoay)
     def ImageShowTextXY(self,guiArray,posX=100,posY=100,strmsg="hello",clrLineColor = [0, 255, 0],lFontSize = 100,degree=0.0):
     # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
@@ -276,13 +276,13 @@ class ScImageShow:
         # 将GUI数组设置到视图
         return guiText
 
-    # 新用二维向量的位置显示圆
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #centerpos ScVector类型，表示显示圆心位置
-    #R int类型，表示圆半径大小
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
+    # Vẽ hình tròn theo vị trí vector 2D (phiên bản mới)
+    # self         : chính instance của lớp ScImageShow
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # centerpos    : kiểu ScVector, tọa độ tâm đường tròn (x, y, có thể kèm góc)
+    # R            : kiểu int, bán kính đường tròn (pixel)
+    # clrLineColor : màu vẽ viền, kiểu RGB, mặc định [0, 255, 0] → xanh lá
+    # nLineWidth   : kiểu int, độ dày nét vẽ (line width)
     def ImageShowCircle(self,guiArray,centerpos, R=50, clrLineColor=[0, 255, 0], nLineWidth=1):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -301,13 +301,13 @@ class ScImageShow:
         guiArray.Add(guiCircle)
         return True
 
-    # 新用二维向量的位置显示圆
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #circle ScCircle类型，表示显示圆心位置
-    #R int类型，表示圆半径大小
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
+    # Vẽ hình tròn theo đối tượng ScCircle (phiên bản mới)
+    # self         : chính instance của lớp ScImageShow
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # circle       : kiểu ScCircle, chứa thông tin tâm và bán kính của đường tròn
+    # R            : kiểu int, bán kính đường tròn (thường dùng để override hoặc làm tham số phụ)
+    # clrLineColor : màu viền, kiểu RGB, mặc định [0, 255, 0] → xanh lá cây
+    # nLineWidth   : kiểu int, độ dày nét vẽ (line width)
     def ImageShowWholeCircle(self,guiArray,circle, clrLineColor=[0, 255, 0], nLineWidth=1):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -326,12 +326,12 @@ class ScImageShow:
         return True
 
 
-    # 用点向量生成多边形
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #VectorVec ScVectorVec类型，表示多边形上的点集
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
+    # Vẽ đa giác từ tập hợp các điểm vector
+    # self         : chính instance của lớp ScImageShow
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # VectorVec    : kiểu ScVectorVec, danh sách các điểm (vector) tạo thành đa giác
+    # clrLineColor : màu viền đa giác, kiểu RGB, mặc định [0, 255, 0] → xanh lá
+    # nLineWidth   : độ dày đường viền (line width), kiểu int
     def ImageShowPolyline(self,guiArray,VectorVec, clrLineColor=[0, 255, 0], nLineWidth=1):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -353,12 +353,12 @@ class ScImageShow:
 
 
 
-    #用直线显示直线的位置
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #line ScLine类型，表示直线
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
+    # Vẽ đường thẳng theo đối tượng ScLine
+    # self         : chính instance của lớp ScImageShow
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # line         : kiểu ScLine, đối tượng chứa thông tin đường thẳng cần hiển thị
+    # clrLineColor : màu đường thẳng, kiểu RGB, mặc định [0, 255, 0] → xanh lá
+    # nLineWidth   : độ dày nét vẽ (line width), kiểu int
     def ImageShowLine(self,guiArray,line,clrLineColor = [0, 255, 0],nLineWidth = 1):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -378,13 +378,13 @@ class ScImageShow:
         guiArray.Add(guiLine)
         return True
 
-    #显示矩形区域
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #rect scRect类型，表示矩形
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
-    #strLabel = "" string类型 显示矩形的标号
+    # Vẽ vùng hình chữ nhật (rectangle)
+    # self         : chính instance của lớp ScImageShow
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # rect         : kiểu scRect, đối tượng chứa thông tin hình chữ nhật
+    # clrLineColor : màu viền, kiểu RGB, mặc định [0, 255, 0] → xanh lá
+    # nLineWidth   : độ dày viền (line width), kiểu int
+    # strLabel     : chuỗi nhãn hiển thị bên cạnh rectangle (mặc định rỗng "")
     def ImageShowRec(self, guiArray, rect, clrLineColor=[0, 255, 0], nLineWidth=1,strLabel = ""):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -573,12 +573,12 @@ class ScImageShow:
         return guiCross
 
 
-    # 显示向量类型数组的十字
-    # self 类本身ScImageShow
-    # Vec 二维向量位置位置（含角度）
-    # guiArray 显示数组
-    # clrLineColor 显示颜色
-    # nLineWidth 线宽
+    # Vẽ một loạt dấu chữ thập (cross) từ mảng vector (hỗ trợ nhiều điểm cùng lúc)
+    # self         : chính instance của lớp ScImageShow
+    # Vec          : mảng/list các vector 2D (mỗi vector chứa x, y và góc xoay)
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # clrLineColor : màu vẽ các cross (RGB, mặc định thường xanh lá)
+    # nLineWidth   : độ dày nét vẽ của các cross
     def ImagechowCrossSc2Vec(self,guiArray, Sc2Vec, clrLineColor=[0, 255, 0], nLineWidth=1):
         # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
@@ -602,13 +602,13 @@ class ScImageShow:
 
 
 
-    # 显示位置姿态类型的十字
-    # self 类本身ScImageShow
-    # Cood 位置姿态生成的位置（含角度）
-    # guiArray 显示数组
-    # size 尺寸大小
-    # clrLineColor 显示颜色
-    # nLineWidth 线宽
+    # Vẽ dấu chữ thập (cross) theo vị trí + tư thế (pose) — có xoay góc
+    # self         : chính instance của lớp ScImageShow
+    # Cood         : tọa độ + góc xoay (pose) cần hiển thị (x, y, angle)
+    # guiArray     : mảng ảnh để vẽ lên (buffer hiển thị)
+    # size         : kích thước của dấu chữ thập (độ dài mỗi nhánh)
+    # clrLineColor : màu vẽ (RGB, mặc định thường là xanh lá)
+    # nLineWidth   : độ dày nét vẽ
     def ImagechowCrossCood(self, guiArray, Cood, size=10, clrLineColor=[0, 255, 0], nLineWidth=1):
         # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
