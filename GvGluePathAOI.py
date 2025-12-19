@@ -155,9 +155,9 @@ import csv
 import math
 from ScMsgReport import ScMsgReport
 
-#用于视图特征显示支持点，点集，线，线段，圆，矩形，仿射矩形，多边形，多边形集合
-#featureVec 显示特征，不关心类型，按格式[[特征1,特征1工具结果],[特征2,特征2工具结果]]格式填入即可
-#clr 显示颜色，0红色，1绿色
+# Dùng để hiển thị đặc trưng trên khung hình xem, hỗ trợ: điểm, tập hợp điểm, đường thẳng, đoạn thẳng, đường tròn, hình chữ nhật, hình chữ nhật affine, đa giác, tập hợp đa giác
+# featureVec: danh sách các đặc trưng cần hiển thị, không quan tâm kiểu dữ liệu, chỉ cần điền theo định dạng [[đặc_trưng_1, kết_quả_công_cụ_1], [đặc_trưng_2, kết_quả_công_cụ_2]]
+# clr: màu hiển thị, 0 = đỏ, 1 = xanh lá
 def ShowFeatureVec(guiArray,featureVec,clr,line_width=2):
     if clr==1:
         show_clr=[0,255,0]
@@ -1310,21 +1310,23 @@ class glue_display():
         
         return guiArray 
 
-    #用于显示常规信息：物料结果,SN,NG原因，最短胶宽，详细结果信息
-    #guiArray :显示用GuiArray
-    #str_info :异型胶输出数据
-    #font_size：显示字体
-    #offset_x：显示偏移量X
-    #offset_y：显示偏移量Y
-    #line_space: 显示行间距
-    #line_width：显示线宽
+    # Dùng để hiển thị thông tin kết quả tổng quát trên ảnh:
+    # Kết quả vật liệu (OK/NG), SN, nguyên nhân NG, chiều rộng keo nhỏ nhất, thông tin chi tiết...
 
-    #bShowMinWidth:是否显示最小胶宽,true 显示 ，false 不显示,默认显示
-    #b_show_cof：True COF显示黄色与详细数据  False COF显示绿色及屏蔽详细数据
-    #b_show_shifit:True 显示Shift信息；false 不显示
-    #b_show_lenght:True 显示胶长信息；false 不显示
-    #b_show_overflow:True 显示溢胶信息；false 不显示
-    #b_show_lackglue:True 显示缺胶信息；false 不显示
+    # guiArray       : buffer/mảng ảnh để vẽ chữ lên
+    # str_info       : dữ liệu kết quả đầu ra của kiểm tra keo dị hình (dạng string hoặc dict)
+    # font_size      : cỡ chữ hiển thị
+    # offset_x       : độ lệch hiển thị theo trục X (pixel)
+    # offset_y       : độ lệch hiển thị theo trục Y (pixel)
+    # line_space     : khoảng cách giữa các dòng
+    # line_width     : độ dày viền (nếu có khung), hoặc đôi khi dùng để bôi đậm chữ
+
+    # bShowMinWidth   : True → hiện chiều rộng keo nhỏ nhất | False → ẩn (mặc định hiện)
+    # b_show_cof      : True → vùng COF hiện màu vàng + hiện đầy đủ chi tiết, False → vùng COF hiện màu xanh + ẩn một số dữ liệu nhạy cảm
+    # b_show_shifit   : True → hiện thông tin Shift (lệch vị trí) | False → ẩn
+    # b_show_lenght   : True → hiện thông tin chiều dài keo | False → ẩn
+    # b_show_overflow : True → hiện thông tin bị tràn keo (overflow) | False → ẩn
+    # b_show_lackglue : True → hiện thông tin thiếu keo (lack glue) | False → ẩn
     def show_general_data(self,guiArray,str_info,font_size=40,offset_x=50,offset_y=50,line_space=0,line_width=3,bShowMinWidth=True,b_show_cof=False,\
                             b_show_shifit=False,b_show_lenght=False,b_show_overflow=False,b_show_lackglue=False):
         #所有信息均显示
@@ -3097,8 +3099,8 @@ class result_operator():
         
         return return_data,return_errorcode
 
-    # 合并两组相同长度的检测结果
-    # 用于兼容一组无法完成全部检测内容的情况
+    # Gộp (hợp nhất) kết quả kiểm tra từ 2 nhóm có cùng độ dài
+    # Dùng để tương thích trường hợp một nhóm không thể hoàn thành toàn bộ nội dung kiểm tra
     def merge(self,str_info1,str_info2,bOverflowColor=True,b_show_lackglue=True):
         #obj1 = json.loads(str_info1)
         #obj2 = json.loads(str_info2)
@@ -3219,8 +3221,8 @@ class result_operator():
         return obj1
         #return json.dumps(obj1)
 
-    # 合并在1后面追加结果
-    # 用于兼容多个工具合并的情况
+    # Gộp kết quả bằng cách nối thêm (append) vào sau nhóm 1
+    # Dùng để hỗ trợ trường hợp cần merge nhiều tool / nhiều bước kiểm tra lại với nhau
     def add(self,str_info1,str_info2,bOverflowColor=True,b_show_lackglue=True):
         #obj1 = json.loads(str_info1)
         #obj2 = json.loads(str_info2)
