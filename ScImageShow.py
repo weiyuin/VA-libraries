@@ -405,18 +405,15 @@ class ScImageShow:
         guiArray.Add(guiRect)
         return True
 
-
-
-
-    #显示矩形区域
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #centerPos scVector类型，表示矩形
-    #W,double类型 表示矩形宽
-    #H,double类型 表示矩形高
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
-    #strLabel = "" string类型 显示矩形的标号
+    # Hiển thị vùng hình chữ nhật
+    # self: Chính là lớp ScImageShow
+    # guiArray: Mảng hiển thị guiArray
+    # centerPos: Kiểu scVector, biểu thị vị trí tâm hình chữ nhật
+    # W: Kiểu double, biểu thị chiều rộng hình chữ nhật
+    # H: Kiểu double, biểu thị chiều cao hình chữ nhật
+    # clrLineColor: Kiểu RGB, mặc định là [0, 255, 0] màu xanh lá
+    # nLineWidth: Kiểu int, biểu thị độ rộng nét vẽ
+    # strLabel = "": Kiểu string, hiển thị nhãn (tên/số hiệu) của hình chữ nhật
     def ImageShowRecCenter(self, guiArray,centerPos,W=100,H=200, clrLineColor=[0, 255, 0], nLineWidth=1,strLabel = ""):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -437,13 +434,13 @@ class ScImageShow:
         guiArray.Add(guiRect)
         return True
 
-    #显示矩形区域
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #affinerect scaffinerect类型，表示仿射矩形
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
-    #strLabel = "" string类型 显示矩形的标号
+    # Hiển thị vùng hình chữ nhật (Affine)
+    # self: Chính là lớp ScImageShow
+    # guiArray: Mảng hiển thị guiArray
+    # affinerect: Kiểu scaffinerect, biểu thị hình chữ nhật affine (hình chữ nhật có thể xoay)
+    # clrLineColor: Kiểu RGB, mặc định là [0, 255, 0] màu xanh lá
+    # nLineWidth: Kiểu int, biểu thị độ rộng nét vẽ
+    # strLabel = "": Kiểu string, hiển thị nhãn của hình chữ nhật
     def ImageShowAffRec(self, guiArray, affinerect, clrLineColor=[0, 255, 0], nLineWidth=1,strLabel = ""):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -463,15 +460,15 @@ class ScImageShow:
         return True
 
 
-    #显示矩形区域
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #centerPos scVector类型，表示矩形
-    #W,double类型 表示矩形宽
-    #H,double类型 表示矩形高
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
-    #strLabel = "" string类型 显示矩形的标号
+    # Hiển thị vùng hình chữ nhật
+    # self: Chính là lớp ScImageShow
+    # guiArray: Mảng hiển thị guiArray
+    # centerPos: Kiểu scVector, biểu thị vị trí (tâm) hình chữ nhật
+    # W: Kiểu double, biểu thị chiều rộng hình chữ nhật
+    # H: Kiểu double, biểu thị chiều cao hình chữ nhật
+    # clrLineColor: Kiểu RGB, mặc định là [0, 255, 0] màu xanh lá
+    # nLineWidth: Kiểu int, biểu thị độ rộng nét vẽ
+    # strLabel = "": Kiểu string, hiển thị nhãn (tên) của hình chữ nhật
     def ImageShowAffRecCenter(self, guiArray,centerPos,W=100,H=200,dangle=0.0, clrLineColor=[0, 255, 0], nLineWidth=1,strLabel = ""):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -496,12 +493,12 @@ class ScImageShow:
         guiArray.Add(affinerect_gui)
         return True
 
-    # 用线段显示线段的位置
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #line ScLineSeg类型，表示线段
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
+    # Sử dụng đoạn thẳng để hiển thị vị trí của đoạn thẳng
+    # self: Chính là lớp ScImageShow
+    # guiArray: Mảng hiển thị guiArray
+    # line: Kiểu ScLineSeg, biểu thị đoạn thẳng
+    # clrLineColor: Kiểu RGB, mặc định là [0, 255, 0] màu xanh lá
+    # nLineWidth: Kiểu int, biểu thị độ rộng (độ dày) của nét vẽ
     def ImageShowLineSeg(self,guiArray,lineSeg, clrLineColor=[0, 255, 0], nLineWidth=1):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -520,12 +517,12 @@ class ScImageShow:
         guiArray.Add(guiLineSeg)
         return True
 
-    # 用线段显示线段的位置
-    #self 类本身ScImageShow
-    #guiArray 显示数组guiArray
-    #Pos1/Pos2 ScVector类型，表示二维向量
-    #clrLineColor RGB类型，默认 [0, 255, 0]绿色
-    #nLineWidth，int类型，表示线宽
+    # Sử dụng đoạn thẳng để hiển thị vị trí của đoạn thẳng
+    # self: Chính là lớp ScImageShow
+    # guiArray: Mảng hiển thị guiArray
+    # Pos1/Pos2: Kiểu ScVector, biểu thị vector hai chiều (2D)
+    # clrLineColor: Kiểu RGB, mặc định là [0, 255, 0] màu xanh lá
+    # nLineWidth: Kiểu int, biểu thị độ rộng (độ dày) của nét vẽ
     def ImageShowLineSegVec(self,guiArray,Pos1,Pos2, clrLineColor=[0, 255, 0], nLineWidth=1,nLineStyle=0):
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()
         guiStyle.bVisible = True
@@ -546,12 +543,12 @@ class ScImageShow:
         guiArray.Add(guiLineSeg)
         return True
 
-    # 显示向量类型的十字
-    # self 类本身ScImageShow
-    # Vec 二维向量位置位置（含角度）
-    # guiArray 显示数组
-    # clrLineColor 显示颜色
-    # nLineWidth 线宽
+    # Hiển thị hình chữ thập (cross) cho vector
+    # self: Chính là lớp ScImageShow
+    # Vec: Vị trí vector 2 chiều (bao gồm cả góc)
+    # guiArray: Mảng hiển thị
+    # clrLineColor: Màu hiển thị
+    # nLineWidth: Độ rộng nét vẽ (độ dày)
     def ImagechowCrossVec(self,guiArray, Vec, clrLineColor=[0, 255, 0], nLineWidth=1):
         # 设置GUI格式
         guiStyle = GvVisionAssembly.GsScriptGuiStyle()

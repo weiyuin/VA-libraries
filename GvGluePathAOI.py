@@ -300,7 +300,7 @@ def check_errorcode(str_info,b_show_lackglue=True):
         obj["base_info"]["error_code"]=0
     return obj
     
-#用于修改区域数据后判断区域errorcode
+# Dùng để xác định mã lỗi (errorcode) của vùng sau khi sửa đổi dữ liệu vùng
 def check_region_errorcode(str_info,key):
     obj_region1=str_info
     list_error_code=[]
