@@ -4,7 +4,7 @@ X_Start = 400
 Y_Start = 100
 kich_thuoc = 80
 MAU_DO = [255, 0, 0]
-MAU_XANH_DEN = [0, 0, 255]     # Màu xanh (Quân Đen - dùng xanh để dễ đọc chữ)
+MAU_XANH_DEN = [0, 0, 255]
 def toado(cot,hang):
     X = X_Start + (cot*kich_thuoc)
     Y = Y_Start + (hang*kich_thuoc)
